@@ -87,72 +87,72 @@ class ContactController extends Controller
 
         ]);
 
-        $photos = [
-            'header_photo',
-            'about_photo',
-            'footer_photo',
-        ];
+        // $photos = [
+        //     'header_photo',
+        //     'about_photo',
+        //     'footer_photo',
+        // ];
 
-        $photos_name = [];
-
-
-
-        $update = contact::find($id);
+        // $photos_name = [];
 
 
-        foreach ($photos as $single_photo) {
-            if ($request->hasFile($single_photo)) {
 
-                if (file_exists('images/' . $update[$single_photo])) {
-                    unlink('images/' . $update[$single_photo]);
-                }
-                $file = $request[$single_photo];
-                $path_file = time() . $file->getClientOriginalName();
-                $photos_name[] = $path_file;
-                $file->move('images', $path_file);
-            } else {
-                $header_photo = $update[$single_photo];
+        // $update = contact::find($id);
+
+
+        // foreach ($photos as $single_photo) {
+        //     if ($request->hasFile($single_photo)) {
+
+        //         if (file_exists('images/' . $update[$single_photo])) {
+        //             unlink('images/' . $update[$single_photo]);
+        //         }
+        //         $file = $request[$single_photo];
+        //         $path_file = time() . $file->getClientOriginalName();
+        //         $photos_name[] = $path_file;
+        //         $file->move('images', $path_file);
+        //     } else {
+        //         $header_photo = $update[$single_photo];
+        //     }
+        // }
+
+        if ($request->hasFile('header_photo')) {
+            $old_path = $update->header_photo;
+            if (file_exists('images/' . $old_path)) {
+                unlink('images/' . $old_path);
             }
+            $file = $request->header_photo;
+            $path_file = time() . $file->getClientOriginalName();
+            $header_photo = $path_file;
+            $file->move('images', $path_file);
+        } else {
+            $header_photo = $update->header_photo;
         }
 
-        // if ($request->hasFile('header_photo')) {
-        //     $old_path = $update->header_photo;
-        //     if (file_exists('images/' . $old_path)) {
-        //         unlink('images/' . $old_path);
-        //     }
-        //     $file = $request->header_photo;
-        //     $path_file = time() . $file->getClientOriginalName();
-        //     $header_photo = $path_file;
-        //     $file->move('images', $path_file);
-        // } else {
-        //     $header_photo = $update->header_photo;
-        // }
 
-
-        // if ($request->hasFile('about_photo')) {
-        //     $old_path = $update->about_photo;
-        //     if (file_exists('images/' . $old_path)) {
-        //         unlink('images/' . $old_path);
-        //     }
-        //     $file = $request->about_photo;
-        //     $path_file = time() . $file->getClientOriginalName();
-        //     $about_photo = $path_file;
-        //     $file->move('images', $path_file);
-        // } else {
-        //     $about_photo = $update->about_photo;
-        // }
-        // if ($request->hasFile('footer_photo')) {
-        //     $old_path = $update->footer_photo;
-        //     if (file_exists('images/' . $old_path)) {
-        //         unlink('images/' . $old_path);
-        //     }
-        //     $file = $request->footer_photo;
-        //     $path_file = time() . $file->getClientOriginalName();
-        //     $footer_photo = $path_file;
-        //     $file->move('images', $path_file);
-        // } else {
-        //     $footer_photo = $update->footer_photo;
-        // }
+        if ($request->hasFile('about_photo')) {
+            $old_path = $update->about_photo;
+            if (file_exists('images/' . $old_path)) {
+                unlink('images/' . $old_path);
+            }
+            $file = $request->about_photo;
+            $path_file = time() . $file->getClientOriginalName();
+            $about_photo = $path_file;
+            $file->move('images', $path_file);
+        } else {
+            $about_photo = $update->about_photo;
+        }
+        if ($request->hasFile('footer_photo')) {
+            $old_path = $update->footer_photo;
+            if (file_exists('images/' . $old_path)) {
+                unlink('images/' . $old_path);
+            }
+            $file = $request->footer_photo;
+            $path_file = time() . $file->getClientOriginalName();
+            $footer_photo = $path_file;
+            $file->move('images', $path_file);
+        } else {
+            $footer_photo = $update->footer_photo;
+        }
 
 
 
@@ -167,9 +167,9 @@ class ContactController extends Controller
             'header' => $request->header,
             'about' => $request->about,
             'footer' =>  $request->footer,
-            $photos[0] => $photos_name[0],
-            $photos[1] => $photos_name[1],
-            $photos[2] => $photos_name[2],
+            'header_photo' => $header_photo,
+            'about_photo' => $about_photo,
+            'footer_photo' => $footer_photo,
 
         ]);
 
