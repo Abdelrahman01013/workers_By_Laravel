@@ -97,7 +97,7 @@ class ContactController extends Controller
 
 
 
-        // $update = contact::find($id);
+         $update = contact::find($id);
 
 
         // foreach ($photos as $single_photo) {
